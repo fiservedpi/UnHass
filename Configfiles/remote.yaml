@@ -1,0 +1,6 @@
+  - platform: harmony
+    name: Living Room
+    host: 192.168.86.47
+    activity: Watch TV
+    
+    

@@ -1,0 +1,277 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude
+  longitude: !secret longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 171
+  # metric for Metric, imperial for Imperial
+  unit_system: imperial
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: !secret time_zone
+  # Customization file
+  customize: !include customize.yaml
+
+# Show the introduction message on startup.
+# introduction:
+
+# Enables the frontend
+frontend:
+ themes: !include_dir_merge_named themes/
+ extra_html_url: 
+     - /local/hass-bha-icons.html
+
+logger: 
+  default: info
+  logs:
+    hass_nabucasa: debug
+    snitum: debug
+    homeassistant.component.cloud: debug
+    homeassistant.component.cloud.iot: debug
+
+zone:
+  name: Home 
+  longitude: !secret longitude
+  latitude: !secret latitude 
+  radius: 20
+  icon: mdi:blender
+  region: us
+  
+switch:  
+- platform: mqtt 
+  name: "Living Room Lamp"  
+  command_topic: "cmnd/diningroomlamp/power" 
+  state_topic: "stat/diningroomlamp/POWER" 
+  qos: 1
+  payload_on: "ON" 
+  payload_off: "OFF"   
+  retain: "true"
+
+- platform: mqtt 
+  name: "Dining Room Lamp"  
+  command_topic: "cmnd/fishtank/POWER" 
+  state_topic: "stat/fishtank/POWER" 
+  qos: 1
+  payload_on: "ON" 
+  payload_off: "OFF"   
+  retain: "true"
+
+- platform: mqtt 
+  name: "Garage Lock"  
+  command_topic: "cmnd/garagelock/power" 
+  state_topic: "stat/garagelock/POWER" 
+  qos: 1
+  payload_on: "ON" 
+  payload_off: "OFF"   
+  retain: "true"
+
+- platform: mqtt 
+  name: "Christmas Tree"  
+  command_topic: "cmnd/solder_iron/power" 
+  state_topic: "stat/solder_iron/POWER" 
+  qos: 1
+  payload_on: "ON" 
+  payload_off: "OFF"   
+  retain: "true"
+
+- platform: mqtt 
+  name: "Stairs"  
+  command_topic: "cmnd/space-heater/power" 
+  state_topic: "stat/space-heater/POWER" 
+  qos: 1
+  payload_on: "ON" 
+  payload_off: "OFF"   
+  retain: "true"
+  
+- platform: mqtt 
+  name: "Bedroom Window"  
+  command_topic: "cmnd/CPU_Fan/POWER" 
+  state_topic: "stat/CPU_Fan/POWER" 
+  qos: 1
+  payload_on: "ON" 
+  payload_off: "OFF"   
+  retain: "true"
+  
+- platform: mqtt 
+  name: "Hallway Lamp"  
+  command_topic: "cmnd/tuya_2/power" 
+  state_topic: "stat/tuya_2/POWER" 
+  qos: 1
+  payload_on: "ON" 
+  payload_off: "OFF"   
+  retain: "true"
+
+- platform: wake_on_lan
+  name: ROG Hero Off
+  "mac": "E8-D1-1B-5D-47-D8"
+  host: !secret wol_host 
+  turn_off:
+    service: script.pc_off
+- platform: wake_on_lan
+  name: ROG Hero Locked
+  "mac": "E8-D1-1B-5D-47-D8"
+  host: !secret wol_host 
+  turn_off:
+    service: script.pc_lock
+    
+- platform: wake_on_lan
+  name: ROG Hero Woke
+  "mac": "E8-D1-1B-5D-47-D8"
+  host: !secret wol_host 
+  turn_off:
+    service: script.pc_wake
+    
+wake_on_lan:
+
+joaoapps_join:
+  - name: ROG
+    device_id: !secret joaoapps_join_device_id1
+    api_key: !secret joaoapps_join_api_key
+  - name: Pixel 3 XL 
+    device_id: !secret joaoapps_join_device_id2
+    api_key: !secret joaoapps_join_api_key
+
+device_tracker:
+ - platform: google_maps
+   username: !secret device_tracker_username
+##password: !secret device_tracker_password
+
+# The updater component will check daily for new releases   
+updater:
+##custom_updater:
+
+# Enables configuration UI
+config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker #container, etc.
+##http:
+##  api_password: !secret http_password
+#base_url: fiservedpiha.ddns.net
+
+# Discover some devices automatically
+discovery:
+  ignore:
+    - igd
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+##conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Allow diagnosing system problems
+system_health:
+
+# Weather prediction
+  - platform: yr
+  
+# Example configuration.yaml entry
+##mobile_app:
+  
+##google:
+##client_id: !secret google_calendar_id 
+##client_secret: !secret google_calendar_secret 
+
+sensor:
+- platform: moon
+- platform: bitcoin 
+  display_options: 
+    - exchangerate 
+    - trade_volume_btc
+
+weather:
+  - platform: darksky
+    api_key: !secret dark_api
+    latitude: !secret dark_sky_lat
+    longitude: !secret dark_sky_long
+    units: auto
+    mode: hourly 
+
+eufy:
+  username: !secret eufy_username
+  password: !secret eufy_password
+
+tuya:
+  username: !secret tuya_username 
+  password: !secret tuya_password
+  country_code: 1
+  platform: tuya 
+
+blink:  
+  username: !secret blink_username
+  password: !secret blink_password
+ 
+sonoff:
+  username: !secret sonoff_username
+  password: !secret sonoff_password
+  api_region: US
+
+nest: 
+  client_id: !secret client_id 
+  client_secret: !secret client_secret
+
+cover:
+  - platform: myq
+    username: !secret myq_username
+    password: !secret myq_password
+
+notify:
+  - name: PushBullet
+    platform: pushbullet
+    api_key: !secret push_api_key
+  - platform: joaoapps_join
+    api_key: 9c4e0eab9a254c87809f05bdf2e10fec
+    device_id: d510e18005db4ead9292f5d9bbca0380      
+    name: Computer
+  - platform: joaoapps_join
+    api_key: !secret joaoapps_join_api_key
+    device_id: !secret joaoapps_join_device_id2    
+    name: Dave's Phone
+
+# Text to speech
+tts: 
+ - platform: google_translate
+   language: 'en'
+
+# Cloud
+cloud:
+
+input_select:
+  activities:
+    name: Activities
+    options:
+      - Play PS4
+      - Watch Chromecast
+      - Watch TV 
+      - DVR
+    initial: Watch TV
+    icon: mdi:panda
+
+############ iframes ###############
+panel_iframe:
+ configurator:
+   title: ESPHome 
+   icon: mdi:minidisc
+   url: http://192.168.86.244:6052/
+
+## nodered:
+##   title: 'Node-Red'
+##   icon: 'mdi:shuffle-variant'
+##   url: http://98.4.101.20:1880/
+
+##input_select: !include input_select.yaml
+##sensor: !include_dir_merge_named sensor/
+remote: !include remote.yaml
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
