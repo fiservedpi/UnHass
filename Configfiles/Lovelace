@@ -1,0 +1,265 @@
+background: var(--background-image)
+custom_header:
+  compact_mode: true
+  resources:
+    - type: module
+      url: /www/custom-header/custom-header.js?v=0.0.1
+  views: null
+resources:
+  - type: module
+    url: /local/www/remote-card.jsv=0.0.1
+  - type: js
+    url: /local/www/thermostat-card.jsv=0.0.1
+  - resources: null
+    type: js
+    url: /local/www/remote-card.jsv=0.0.1
+  - type: js
+    url: /local/mini-media-player-bundle.js?ver=1.0.3
+  - type: js
+    url: /local/card-modder.js?v=1
+  - type: module
+    url: /local/slider-entity-row.js?v=1
+  - type: module
+    url: /local/fold-entity-row.js?v=1
+  - type: module
+    url: /local/custom-lovelace/upcoming-media-card/upcoming-media-card.js?v=0.1.1
+  - type: module
+    url: /local/www/custom-header/custom-header.js?v=0.0.1
+title: Home
+views:
+  - '-cards':
+      - entities:
+          - entity: automation.closet_push
+          - entity: automation.iron
+          - entity: automation.closet_ajar
+          - entity: automation.closet_tts
+        show_header_toggle: false
+        title: Automation's
+        type: entities
+      - entity: sensor.downstairs_thermostat_humidity
+        type: sensor
+      - entity: sensor.downstairs_thermostat_hvac_state
+        type: sensor
+      - entity: weather.dark_sky
+        name: 'MARS '
+        type: weather-forecast
+      - entities:
+          - entity: sensor.custom_card_tracker
+          - entity: sensor.custom_component_tracker
+        show_header_toggle: false
+        type: entities
+      - entity: sensor.blink_backyard_battery
+        max: 100
+        min: 0
+        severity:
+          green: 80
+          red: 5
+          yellow: 15
+        theme: default
+        type: gauge
+    badges:
+      - entity: XXXXXX-XXXXX-XXXXX
+    cards:
+      - entity: alarm_control_panel.blink_home
+        name: Backyard
+        states:
+          - arm_home
+          - arm_away
+        type: alarm-panel
+      - entity: alarm_control_panel.blink_front_porch
+        name: 'Front Porch '
+        states:
+          - arm_home
+          - arm_away
+        type: alarm-panel
+      - entities:
+          - entity: light.012005975ccf7f6a66fc
+          - entity: light.garage_light
+          - entity: light.30063068dc4f229bc7c4
+          - entity: light.30063068dc4f229bcff2
+          - entity: light.30063068c44f33aa2eb7
+          - entity: light.38583387c44f3391e8cc
+        show_header_toggle: false
+        title: Bulbs
+        type: entities
+      - entities:
+          - entity: switch.0120059368c63aa04fc3
+          - entity: switch.0120059360019471b780
+          - entity: switch.0320018968c63ab5d565
+          - entity: switch.0220036060019473a0e1
+          - entity: switch.dining_room_lamp
+          - entity: switch.hallway_lamp
+          - entity: switch.living_room_lamp
+        show_header_toggle: false
+        title: Switches
+        type: entities
+      - entities:
+          - light.living_room_bulb
+          - entity: light.living_room_bulb
+            type: 'custom:slider-entity-row'
+        type: entities
+      - entities:
+          - entity: binary_sensor.closet_door
+          - entity: binary_sensor.attic_door
+          - entity: binary_sensor.basement_motion_2
+        title: Sensors
+        type: glance
+      - entities:
+          - entity: remote.living_room
+          - entity: automation.watch_tv
+          - entity: automation.play_ps4
+        show_header_toggle: false
+        title: Harmony
+        type: entities
+      - artwork: cover
+        entity: media_player.downstairs_playroom_tv
+        hide:
+          volume: true
+        source: icon
+        type: 'custom:mini-media-player'
+      - entities:
+          - entity: switch.sonoff_10001d9cd9
+          - entities:
+              - switch.sonoff_10001d9cd9
+            head: media_player.XXXXX>XXXXX
+            type: 'custom:fold-entity-row'
+        type: entities
+      - entity: climate.downstairs
+        name: Thermostat
+        type: thermostat
+      - entities:
+          - entity: cover.garage_door_2
+          - entity: switch.garage_lock
+        show_header_toggle: false
+        title: Garage Door
+        type: entities
+      - aspect_ratio: 50%
+        camera_image: camera.blink_garage
+        camera_view: live
+        entity: cover.garage_door_2
+        image: 'https://www.home-assistant.io/images/merchandise/shirt-frontpage.png'
+        tap_action:
+          action: toggle
+        type: picture-entity
+    icon: 'mdi:atlassian'
+    panel: false
+    path: default_view
+    title: Michigan
+  - badges: []
+    cards:
+      - artwork: cover
+        entity: media_player.dining_room_speaker
+        hide:
+          volume: true
+        source: icon
+        type: 'custom:mini-media-player'
+      - artwork: cover
+        entity: media_player.family_room_display
+        hide:
+          volume: true
+        source: icon
+        type: 'custom:mini-media-player'
+      - artwork: cover
+        entity: media_player.googlehome5385
+        hide:
+          volume: true
+        source: icon
+        type: 'custom:mini-media-player'
+      - entity: media_player.googlehome0714
+        type: media-control
+      - artwork: cover
+        entity: media_player.playstation_4
+        hide:
+          volume: true
+        source: icon
+        type: 'custom:mini-media-player'
+      - entities:
+          - entity: device_tracker.dave
+          - entity: light.fastled_ws2811_light
+            icon: 'bha:led-strip'
+            name: work station LEDs
+        show_header_toggle: false
+        title: Workstation
+        type: entities
+      - entities:
+          - entity: binary_sensor.updater
+          - entity: binary_sensor.remote_ui
+        type: entities
+    icon: 'mdi:chart-donut'
+    title: Media Players
+  - badges:
+      - camera.blink_backyard
+      - camera.blink_entryway
+      - camera.blink_front_porch_left
+      - camera.blink_front_porch_right
+      - camera.blink_garage
+      - camera.blink_playroom
+      - camera.blink_backyard_garage
+      - camera.blink_front_tree
+    cards:
+      - entity: sensor.moon
+        type: sensor
+      - entity: weather.dark_sky
+        name: Niagara Falls
+        type: weather-forecast
+      - entities:
+          - entity: camera.blink_backyard
+          - entity: camera.blink_entryway
+          - entity: camera.blink_front_porch_left
+          - entity: camera.blink_front_porch_right
+          - entity: camera.blink_garage
+          - entity: camera.blink_playroom
+          - entity: camera.blink_backyard_garage
+          - entity: camera.blink_front_tree
+        show_header_toggle: false
+        title: Camera's
+        type: entities
+      - entities:
+          - entity: sensor.fast_com_download
+          - entity: switch.puck1
+          - entity: switch.puck2
+        show_header_toggle: false
+        title: Wifi
+        type: entities
+      - entities:
+          - entity: sensor.fast_com_download
+        hours_to_show: 24
+        refresh_interval: 0
+        type: history-graph
+      - detail: 2
+        entity: sensor.exchange_rate_1_btc
+        graph: line
+        icon: 'mdi:bitcoin'
+        type: sensor
+        unit: USD
+      - entities:
+          - entity: script.pc_lock
+          - entity: script.pc_off
+          - entity: script.pc_wake
+          - entity: script.1583264052574
+          - entity: script.1583273676510
+          - entity: switch.rog
+        type: entities
+    icon: 'mdi:camera'
+    title: ''
+  - badges: []
+    cards:
+      - entity: sensor.blink_backyard_battery
+        type: sensor
+      - entity: sensor.blink_backyard_garage_battery
+        type: sensor
+      - entity: sensor.blink_entryway_battery
+        type: sensor
+      - entity: sensor.blink_front_porch_left_battery
+        type: sensor
+      - entity: sensor.blink_front_porch_right_battery
+        type: sensor
+      - entity: sensor.blink_front_tree_battery
+        type: sensor
+      - entity: sensor.blink_garage_battery
+        type: sensor
+      - entity: sensor.blink_playroom_battery
+        type: sensor
+    icon: 'mdi:artstation'
+    panel: false
+    title: ''
