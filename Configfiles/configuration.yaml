@@ -104,20 +104,20 @@ switch:
 
 - platform: wake_on_lan
   name: ROG Hero Off
-  "mac": "E8-D1-1B-5D-47-D8"
+  "mac": "xxx-xx-xxx"
   host: !secret wol_host 
   turn_off:
     service: script.pc_off
 - platform: wake_on_lan
   name: ROG Hero Locked
-  "mac": "E8-D1-1B-5D-47-D8"
+  "mac": "xxx-xx-xxx"
   host: !secret wol_host 
   turn_off:
     service: script.pc_lock
     
 - platform: wake_on_lan
   name: ROG Hero Woke
-  "mac": "E8-D1-1B-5D-47-D8"
+  "mac": "xxx-xx-xxx"
   host: !secret wol_host 
   turn_off:
     service: script.pc_wake
@@ -230,8 +230,8 @@ notify:
     platform: pushbullet
     api_key: !secret push_api_key
   - platform: joaoapps_join
-    api_key: 9c4e0eab9a254c87809f05bdf2e10fec
-    device_id: d510e18005db4ead9292f5d9bbca0380      
+    api_key: xxx-xx-xxx
+    device_id: xxx-xx-xxx      
     name: Computer
   - platform: joaoapps_join
     api_key: !secret joaoapps_join_api_key
@@ -262,12 +262,12 @@ panel_iframe:
  configurator:
    title: ESPHome 
    icon: mdi:minidisc
-   url: http://192.168.86.244:6052/
+   url: xxx-xx-xxx
 
 ## nodered:
 ##   title: 'Node-Red'
 ##   icon: 'mdi:shuffle-variant'
-##   url: http://98.4.101.20:1880/
+##   url: xxx-xx-xxx
 
 ##input_select: !include input_select.yaml
 ##sensor: !include_dir_merge_named sensor/
