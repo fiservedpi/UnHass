@@ -7,6 +7,8 @@ Sonoff Custom Component by
 https://github.com/peterbuga/HASS-sonoff-ewelink
 Theme By: @hoffdad 
 https://github.com/hoffdad/HA_config/blob/master/themes/main_theme.yaml
+Card Mods By @ThomasLoven
+https://github.com/thomasloven
 
 ![](https://github.com/fiservedpi/UnHass/blob/master/Images/NB1.PNG)
 ![](https://github.com/fiservedpi/UnHass/blob/master/Images/NB2.PNG)
