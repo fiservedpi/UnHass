@@ -1,33 +1,3 @@
-- id: '1553574763116'
-  alias: Soldering Iron
-  trigger:
-  - entity_id: switch.soldering_iron
-    for: 00:45:00
-    platform: state
-    to: 'on'
-  condition: []
-  action:
-  - data:
-      message: You left the Soldering Iron On
-    service: notify.pushbullet
-  - data:
-      entity_id: switch.soldering_iron
-    service: switch.turn_off
-- id: '1553642010818'
-  alias: Heater On
-  trigger:
-  - entity_id: switch.space_heater
-    for: 00:45:00
-    platform: state
-    to: 'on'
-  condition: []
-  action:
-  - data:
-      message: The space heater is on still
-    service: notify.pushbullet
-  - data:
-      message: The space heater is on still
-    service: tts.google_say
 - id: '1553720468993'
   alias: Play PS4
   trigger:
@@ -47,31 +17,19 @@
   - entity_id: input_select.activities
     from: Play PS4
     platform: state
-    to: Watch TV
+    to: Everything On
   condition: []
   action:
   - data:
       activity: Everything Ong
     entity_id: remote.living_room
     service: remote.turn_on
-- id: '1553982380723'
-  alias: Closet Dead
-  trigger:
-  - entity_id: binary_sensor.closet_door
-    for: 00:08:00
-    platform: state
-    to: unavailable
-  condition: []
-  action:
-  - data:
-      message: closet is dead
-    service: notify.pushbullet
 - id: '1554014432125'
   alias: Bedroom Tv
   trigger:
-  - at: 01:30:00
+  - at: 04:00
     platform: time
-  - at: 03:00
+  - at: 05:00
     platform: time
   condition: []
   action:
@@ -151,21 +109,6 @@
   - data:
       entity_id: light.012005975ccf7f6a66fc
     service: light.turn_off
-- id: '1563738986709'
-  alias: Box Fan Off
-  trigger:
-  - entity_id: switch.box_fan
-    for: 00:40:00
-    platform: state
-    to: 'on'
-  condition: []
-  action:
-  - data:
-      entity_id: switch.box_fan
-    service: switch.turn_off
-  - data:
-      message: I turned off the box fan
-    service: notify.pushbullet
 - id: '1566951638439'
   alias: Garage light on
   trigger:
@@ -201,7 +144,7 @@
       url: http://fiservedpiha.ddns.net
     service: notify.dave_s_phone
 - id: '1569978091148'
-  alias: Basement Light On
+  alias: 'Basement Front Left Light  On '
   trigger:
   - entity_id: binary_sensor.basement_motion_2
     platform: state
@@ -210,9 +153,6 @@
   action:
   - data:
       entity_id: light.30063068c44f33aa2eb7
-    service: light.turn_on
-  - data:
-      entity_id: light.38583387c44f3391e8cc
     service: light.turn_on
 - id: '1570395151871'
   alias: Basement Light Off
@@ -233,7 +173,7 @@
   alias: Closet Open
   description: ''
   trigger:
-  - entity_id: binary_sensor.closet_door
+  - entity_id: binary_sensor.closet_door_2
     platform: state
     to: 'on'
   condition: []
@@ -241,22 +181,10 @@
   - data:
       entity_id: light.garage_light
     service: light.turn_on
-- id: '1571172289060'
-  alias: Closet Closed
-  description: ''
-  trigger:
-  - entity_id: binary_sensor.closet_door
-    platform: state
-    to: 'off'
-  condition: []
-  action:
-  - data:
-      entity_id: light.garage_light
-    service: light.turn_off
 - id: '1571264178883'
   alias: Hallway On
   trigger:
-  - at: '16:00'
+  - at: '18:30'
     platform: time
   condition: []
   action:
@@ -264,21 +192,11 @@
       entity_id: switch.
     entity_id: switch.hallway_lamp
     service: switch.turn_on
-- id: '1571264237268'
-  alias: Hallway Off
-  trigger:
-  - at: 07:30
-    platform: time
-  condition: []
-  action:
-  - data:
-      entity_id: switch.0120059360019471b780
-    service: switch.turn_off
 - id: '1575088938907'
-  alias: Playroom window lights On
+  alias: Playroom Lamp On
   description: ''
   trigger:
-  - at: '17:00'
+  - at: '14:00'
     platform: time
   condition: []
   action:
@@ -286,7 +204,7 @@
       entity_id: switch.0120059360019471b780
     service: switch.turn_on
 - id: '1575089100843'
-  alias: Playroom window lights off
+  alias: Playroom Lamp Off
   description: ''
   trigger:
   - at: 09:00
@@ -312,21 +230,20 @@
   condition: []
   action:
   - data:
-      message: the garage door is
+      message: the garage door is Open
     service: notify.pushbullet
   - data:
       message: you left the garage door open
-    service: tts.cloud_say
+    service: tts.google_translate_say
 - id: '1577661047364'
   alias: Hallway Lamp On
   description: ''
   trigger:
-  - at: '16:00'
+  - at: '18:30'
     platform: time
   condition: []
   action:
-  - data:
-      entity_id: switch.hallway_lamp
+  - entity_id: switch.hallway_lamp
     service: switch.turn_on
 - id: '1577661107082'
   alias: Hallway Lamp Off
@@ -338,3 +255,47 @@
   action:
   - entity_id: switch.hallway_lamp
     service: switch.turn_off
+- id: '1586836292704'
+  alias: Sump Pump Down
+  description: ''
+  trigger:
+  - above: '0.0'
+    below: '1.0'
+    entity_id: sensor.sump_pump_power
+    for: 00:00:30
+    platform: numeric_state
+  condition:
+  - condition: state
+    entity_id: weather.dark_sky
+    state: rainy
+  - condition: state
+    entity_id: weather.dark_sky
+    state: cloudy
+  action:
+  - data:
+      message: check the sump pump
+    service: notify.pushbullet
+- id: '1587539980838'
+  alias: Closet Closed
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.closet_door_2
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: light.garage_light
+    service: light.turn_off
+- id: '1588130455435'
+  alias: 'Basement Back Left Light On '
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.basement_motion_2
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: light.38583387c44f3391e8cc
+    service: light.turn_on
