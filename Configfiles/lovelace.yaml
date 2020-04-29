@@ -20,7 +20,7 @@ views:
       - entity: sensor.downstairs_thermostat_hvac_state
         type: sensor
       - entity: weather.dark_sky
-        name: 'Niagara Falls, NY '
+        name: xxxxxx
         type: weather-forecast
       - entities:
           - entity: sensor.custom_card_tracker
@@ -37,7 +37,7 @@ views:
         theme: default
         type: gauge
     badges:
-      - entity: device_tracker.google_maps_111313097970264219339
+      - entity: device_tracker.google339
     cards:
       - entity: alarm_control_panel.blink_home
         name: Backyard
@@ -84,7 +84,7 @@ views:
       - entity: media_player.downstairs_playroom_tv
         type: media-control
       - entities:
-          - entity: media_player.avery_s_room_tv
+          - entity: media_player.xxxxxxx
           - entity: switch.sonoff_10001d9cd9
         show_header_toggle: false
         type: entities
@@ -127,7 +127,7 @@ views:
       - entity: media_player.playstation_4
         type: media-control
       - entities:
-          - entity: device_tracker.dave
+          - entity: device_tracker.xxxx
           - entity: light.fastled_ws2811_light
             icon: 'bha:led-strip'
             name: work station LEDs
@@ -174,7 +174,7 @@ views:
       - entity: sensor.moon
         type: sensor
       - entity: weather.dark_sky
-        name: Niagara Falls
+        name: xxxxxxxxx
         type: weather-forecast
       - entities:
           - entity: camera.blink_backyard
@@ -245,3 +245,4 @@ views:
     icon: 'mdi:artstation'
     panel: false
     title: ''
+.
