@@ -1,30 +1,9 @@
 background: var(--background-image)
-custom_header:
-  compact_mode: true
-  resources:
-    - type: module
-      url: /www/custom-header/custom-header.js?v=0.0.1
-  views: null
 resources:
   - type: module
-    url: /local/www/remote-card.jsv=0.0.1
-  - type: js
-    url: /local/www/thermostat-card.jsv=0.0.1
-  - resources: null
-    type: js
-    url: /local/www/remote-card.jsv=0.0.1
-  - type: js
-    url: /local/mini-media-player-bundle.js?ver=1.0.3
-  - type: js
-    url: /local/card-modder.js?v=1
+    url: /www/plugin/lovelace-card-modder/card-modder.js
   - type: module
-    url: /local/slider-entity-row.js?v=1
-  - type: module
-    url: /local/fold-entity-row.js?v=1
-  - type: module
-    url: /local/custom-lovelace/upcoming-media-card/upcoming-media-card.js?v=0.1.1
-  - type: module
-    url: /local/www/custom-header/custom-header.js?v=0.0.1
+    url: /www/plugin/slider-entity-row/slider-entity-row.js
 title: Home
 views:
   - '-cards':
@@ -41,7 +20,7 @@ views:
       - entity: sensor.downstairs_thermostat_hvac_state
         type: sensor
       - entity: weather.dark_sky
-        name: 'MARS '
+        name: 'Niagara Falls, NY '
         type: weather-forecast
       - entities:
           - entity: sensor.custom_card_tracker
@@ -58,7 +37,7 @@ views:
         theme: default
         type: gauge
     badges:
-      - entity: XXXXXX-XXXXX-XXXXX
+      - entity: device_tracker.google_maps_111313097970264219339
     cards:
       - entity: alarm_control_panel.blink_home
         name: Backyard
@@ -84,7 +63,6 @@ views:
         type: entities
       - entities:
           - entity: switch.0120059368c63aa04fc3
-          - entity: switch.0120059360019471b780
           - entity: switch.0320018968c63ab5d565
           - entity: switch.0220036060019473a0e1
           - entity: switch.dining_room_lamp
@@ -94,35 +72,28 @@ views:
         title: Switches
         type: entities
       - entities:
-          - light.living_room_bulb
           - entity: light.living_room_bulb
-            type: 'custom:slider-entity-row'
+        show_header_toggle: false
         type: entities
       - entities:
-          - entity: binary_sensor.closet_door
+          - entity: binary_sensor.closet_door_2
           - entity: binary_sensor.attic_door
           - entity: binary_sensor.basement_motion_2
         title: Sensors
         type: glance
+      - entity: media_player.downstairs_playroom_tv
+        type: media-control
+      - entities:
+          - entity: media_player.avery_s_room_tv
+          - entity: switch.sonoff_10001d9cd9
+        show_header_toggle: false
+        type: entities
       - entities:
           - entity: remote.living_room
           - entity: automation.watch_tv
           - entity: automation.play_ps4
         show_header_toggle: false
         title: Harmony
-        type: entities
-      - artwork: cover
-        entity: media_player.downstairs_playroom_tv
-        hide:
-          volume: true
-        source: icon
-        type: 'custom:mini-media-player'
-      - entities:
-          - entity: switch.sonoff_10001d9cd9
-          - entities:
-              - switch.sonoff_10001d9cd9
-            head: media_player.XXXXX>XXXXX
-            type: 'custom:fold-entity-row'
         type: entities
       - entity: climate.downstairs
         name: Thermostat
@@ -147,32 +118,14 @@ views:
     title: Michigan
   - badges: []
     cards:
-      - artwork: cover
-        entity: media_player.dining_room_speaker
-        hide:
-          volume: true
-        source: icon
-        type: 'custom:mini-media-player'
-      - artwork: cover
-        entity: media_player.family_room_display
-        hide:
-          volume: true
-        source: icon
-        type: 'custom:mini-media-player'
-      - artwork: cover
-        entity: media_player.googlehome5385
-        hide:
-          volume: true
-        source: icon
-        type: 'custom:mini-media-player'
+      - entity: media_player.family_room_display
+        type: media-control
+      - entity: media_player.googlehome5385
+        type: media-control
       - entity: media_player.googlehome0714
         type: media-control
-      - artwork: cover
-        entity: media_player.playstation_4
-        hide:
-          volume: true
-        source: icon
-        type: 'custom:mini-media-player'
+      - entity: media_player.playstation_4
+        type: media-control
       - entities:
           - entity: device_tracker.dave
           - entity: light.fastled_ws2811_light
@@ -182,9 +135,30 @@ views:
         title: Workstation
         type: entities
       - entities:
+          - entity: sensor.sump_pump_power
+          - entity: sensor.sump_pump_energy_today
+          - entity: sensor.sump_pump_energy_total
+        hours_to_show: 96
+        refresh_interval: 0
+        type: history-graph
+      - entities:
           - entity: binary_sensor.updater
           - entity: binary_sensor.remote_ui
         type: entities
+      - entities:
+          - entity: switch.sump_pump
+          - entity: sensor.power
+          - entity: sensor.current
+          - entity: sensor.voltage
+          - entity: sensor.energy_today
+          - entity: sensor.sump_pump_energy_total
+        show_header_toggle: false
+        title: Sump Pump Monitor
+        type: entities
+      - entity: sensor.sump_pump_voltage
+        graph: line
+        icon: 'mdi:blur-radial'
+        type: sensor
     icon: 'mdi:chart-donut'
     title: Media Players
   - badges:
@@ -239,6 +213,14 @@ views:
           - entity: script.1583264052574
           - entity: script.1583273676510
           - entity: switch.rog
+        type: entities
+      - entities:
+          - entity: sensor.power
+          - entity: sensor.current
+          - entity: sensor.voltage
+          - entity: sensor.energy_today
+        show_header_toggle: false
+        title: DeH
         type: entities
     icon: 'mdi:camera'
     title: ''
