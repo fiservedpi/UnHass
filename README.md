@@ -9,7 +9,8 @@ Theme By: @hoffdad
 https://github.com/hoffdad/HA_config/blob/master/themes/main_theme.yaml
 Card Mods By @ThomasLoven
 https://github.com/thomasloven
-Tasmota: https://github.com/arendst/Tasmota.
+Tasmota by Theo Arends
+https://github.com/arendst/Tasmota
 
 ![](https://github.com/fiservedpi/UnHass/blob/master/Images/NB1.PNG)
 ![](https://github.com/fiservedpi/UnHass/blob/master/Images/NB2.PNG)
