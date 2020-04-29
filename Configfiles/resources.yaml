@@ -1,0 +1,6 @@
+  - url: /local/www/plugin/card-modder.js?=v0.01
+    type: js
+  - url: /local/www/plugin/slider-entity-row.js?v=0.1
+    type: js
+  - url: /local/www/plugin/mini-media-player-bundle.js?v=0.7.1
+    type: module
