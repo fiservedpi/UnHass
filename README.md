@@ -10,7 +10,9 @@ https://github.com/hoffdad/HA_config/blob/master/themes/main_theme.yaml
 Card Mods By @ThomasLoven
 https://github.com/thomasloven
 Tasmota by Theo Arends
-https://github.com/arendst/Tasmota
+https://github.com/arendst/Tasmota.
+Tuya Convert:
+https://github.com/ct-Open-Source/tuya-convert
 
 ![](https://github.com/fiservedpi/UnHass/blob/master/Images/NB1.PNG)
 ![](https://github.com/fiservedpi/UnHass/blob/master/Images/NB2.PNG)
