@@ -50,8 +50,8 @@ switch:
 - platform: wake_on_lan
   mac: "E8:D1:1B:5D:47:D8"
   name: ROG
-  host: 192.168.86.23
-  broadcast_address: 192.168.86.23
+  host: xxx.xx.xxx
+  broadcast_address: xxx.xx.xxx
   
 - platform: mqtt 
   name: "Living Room Lamp"  
@@ -186,7 +186,7 @@ config:
 # Uncomment this if you are using SSL/TLS, running in Docker #container, etc.
 ##http:
 ##  api_password: !secret http_password
-#base_url: fiservedpiha.ddns.net
+#base_url: xxxxxxx
 
 # Discover some devices automatically
 discovery:
@@ -335,8 +335,8 @@ notify:
     platform: pushbullet
     api_key: !secret push_api_key
   - platform: joaoapps_join
-    api_key: 9c4e0eab9a254c87809f05bdf2e10fec
-    device_id: d510e18005db4ead9292f5d9bbca0380      
+    api_key: xxxxxxx
+    device_id: xxxxxxxxxx      
     name: Computer
   - platform: joaoapps_join
     api_key: !secret joaoapps_join_api_key
@@ -371,11 +371,11 @@ input_select:
 panel_iframe:
   router:
     title: 'Portainer'
-    url: 'http://192.168.86.244:9000'
+    url: xxxxxxx
     icon: mdi:minidisc 
   fridge:
     title: 'ESPHome'
-    url: 'http://192.168.86.244:6052'
+    url: xxxxxxxxx
     icon: mdi:minidisc 
 
 ##input_select: !include input_select.yaml
