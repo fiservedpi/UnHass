@@ -1,0 +1,158 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude
+  longitude: !secret longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 171
+  # metric for Metric, imperial for Imperial
+  unit_system: imperial
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: !secret time_zone
+  # Customization file
+  customize: !include customize.yaml
+  
+lovelace:
+  mode: yaml
+  resources: !include resources.yaml
+  
+# Show the introduction message on startup.
+# introduction:
+
+# Enables the frontend
+frontend:
+  themes: !include_dir_merge_named themes
+
+##api:
+  ##password: weed420
+##logger: 
+##  default: info
+##  logs:
+##    hass_nabucasa: debug
+##    snitum: debug
+##    homeassistant.component.cloud: debug
+##    homeassistant.component.cloud.iot: debug
+
+input_boolean:
+
+stream:
+
+browser_mod:
+  prefix: 'browser_mod_'
+  disable:
+    - all
+
+zone:
+  name: Home 
+  longitude: !secret longitude
+  latitude: !secret latitude 
+  radius: 20
+  icon: mdi:blender
+
+fastdotcom:
+  scan_interval:
+      minutes: 30
+
+binary_sensor:      
+
+# Enables configuration UI
+config:
+
+# Discover some devices automatically
+discovery:
+  ignore:
+##    - igd
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+##conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Allow diagnosing system problems
+system_health:
+
+# Weather prediction
+  - platform: yr
+  
+# Example configuration.yaml entry
+mobile_app:
+
+mqtt:
+  switch: 
+
+##weather:
+## - platform: darksky
+##   api_key: !secret dark_api
+##   latitude: !secret dark_sky_lat
+##   longitude: !secret dark_sky_long
+##   units: auto
+##   mode: hourly 
+  
+##nest: 
+  ##client_id: 17adfd50-bd1c-41c9-bef6-cf99a9f5fcae
+  ##client_secret: gLbhDK2t4lxN4s4DexOQw1fZL
+
+##cover:
+##  - platform: myq
+##    username: !secret myq_username
+##    password: !secret myq_password
+
+notify:
+##- platform: discord
+####name: HA_Notify
+####token: ##NzEzOTQxMjc0Mzk4Mjk0MDM5.XsyoXA.LlxHHU2yk-##dsHa0SsKJGFLGlcKg
+  ##- name: PushBullet
+    ##platform: pushbullet
+    ##api_key: !secret push_api_key
+
+shell_command:
+    ntfy: >
+        curl
+        -X POST
+        --url 'https://ntfy.sh/{{ topic }}'
+        --data '{{ message }}'
+        --header 'X-Title: {{ title }}'
+        --header 'X-Tags: {{ tags }}'
+        --header 'X-Priority: {{ priority }}'
+        --header 'X-Delay: {{ delay }}'
+        --header 'X-Actions: {{ actions }}'
+        --header 'X-Click: {{ click }}'
+        --header 'X-Icon: {{ icon }}'        
+
+cloud:
+
+media_source:
+
+# Text to speech
+tts: 
+ - platform: google_translate
+   language: 'en'
+
+############ iframes ###############
+# Example configuration.yaml entry
+panel_iframe:
+  fridge:
+    title: 'ESPHome'
+    url: 'http://192.168.1.8:6052'
+    icon: mdi:minidisc 
+
+##camera: !include camera.yaml
+switch: !include includes/switches.yaml
+sensor: !include includes/sensors.yaml
+light: !include includes/lights.yaml
+remote: !include remote.yaml
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+input_select: !include input_select.yaml
