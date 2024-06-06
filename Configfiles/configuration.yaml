@@ -1,386 +1,206 @@
-homeassistant:
-  # Name of the location where Home Assistant is running
-  name: Home
-  # Location required to calculate the time the sun rises and sets
-  latitude: !secret latitude
-  longitude: !secret longitude
-  # Impacts weather/sunrise data (altitude above sea level in meters)
-  elevation: 171
-  # metric for Metric, imperial for Imperial
-  unit_system: imperial
-  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  time_zone: !secret time_zone
-  # Customization file
-  customize: !include customize.yaml
-  
-lovelace:
-  mode: yaml
-  resources: !include resources.yaml
-  
-# Show the introduction message on startup.
-# introduction:
 
-# Enables the frontend
+# Loads default set of integrations. Do not remove.
+default_config:
+# Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+# Customization file
+# Load frontend themes from the themes folder
 frontend:
- themes: !include_dir_merge_named themes/
- extra_html_url: 
-     - /local/hass-bha-icons.html
-# Cloud
-
-##logger: 
-##  default: info
-##  logs:
-##    hass_nabucasa: debug
-##    snitum: debug
-##    homeassistant.component.cloud: debug
-##    homeassistant.component.cloud.iot: debug
-    
-zone:
-  name: Home 
-  longitude: !secret longitude
-  latitude: !secret latitude 
-  radius: 20
-  icon: mdi:blender
-  
-fastdotcom:
-  scan_interval:
-      minutes: 30
-  
-switch:  
-- platform: wake_on_lan
-  mac: "E8:D1:1B:5D:47:D8"
-  name: ROG
-  host: xxx.xx.xxx
-  broadcast_address: xxx.xx.xxx
-  
-- platform: mqtt 
-  name: "Living Room Lamp"  
-  command_topic: "cmnd/living_room_lamp/POWER" 
-  state_topic: "stat/living_room_lamp/POWER" 
-  qos: 1
-  payload_on: "ON" 
-  payload_off: "OFF"   
-  retain: "true"
-
-- platform: mqtt 
-  name: "Dining Room Lamp"  
-  command_topic: "cmnd/diningroomlamp/POWER" 
-  state_topic: "stat/diningroomlamp/POWER" 
-  qos: 1
-  payload_on: "ON" 
-  payload_off: "OFF"   
-  retain: "true"
-
-- platform: mqtt 
-  name: "Garage Lock"  
-  command_topic: "cmnd/garagelock/power" 
-  state_topic: "stat/garagelock/POWER" 
-  qos: 1
-  payload_on: "ON" 
-  payload_off: "OFF"   
-  retain: "true"
-
-- platform: mqtt 
-  name: "Sump PumpXO"  
-  command_topic: "cmnd/solder_iron/power" 
-  state_topic: "stat/solder_iron/POWER" 
-  qos: 1
-  payload_on: "ON" 
-  payload_off: "OFF"   
-  retain: "true"
-
-- platform: mqtt 
-  name: "Puck2"  
-  command_topic: "cmnd/puck2/power" 
-  state_topic: "stat/puck2/POWER" 
-  qos: 1
-  payload_on: "ON" 
-  payload_off: "OFF"   
-  retain: "1"
-
-- platform: mqtt 
-  name: "Hallway Lamp"  
-  command_topic: "cmnd/hallway_lamp/power" 
-  state_topic: "stat/hallway_lamp/POWER" 
-  qos: 1
-  payload_on: "ON" 
-  payload_off: "OFF"   
-  retain: "true"
-
-- platform: mqtt 
-  name: "Puck1"  
-  command_topic: "cmnd/puck_1/power" 
-  state_topic: "stat/puck_1/POWER" 
-  qos: 1
-  payload_on: "ON" 
-  payload_off: "OFF"   
-  retain: "true"
-
-- platform: mqtt 
-  name: "Sump Pump"  
-  command_topic: "cmnd/wattman2/POWER" 
-  state_topic: "stat/wattman2/POWER" 
-  qos: 1
-  payload_on: "ON" 
-  payload_off: "OFF"   
-  retain: "true"
-  
-- platform: mqtt 
-  name: "Wattman 1"  
-  command_topic: "cmnd/wattman1/POWER" 
-  state_topic: "stat/wattman1/POWER" 
-  qos: 1
-  payload_on: "ON" 
-  payload_off: "OFF"   
-  retain: "true"
- 
-- platform: wake_on_lan
-  name: ROG Hero Off
-  "mac": "E8-D1-1B-5D-47-D8"
-  host: !secret wol_host 
-  turn_off:
-    service: script.pc_off
-- platform: wake_on_lan
-  name: ROG Hero Locked
-  "mac": "E8-D1-1B-5D-47-D8"
-  host: !secret wol_host 
-  turn_off:
-    service: script.pc_lock
-    
-- platform: wake_on_lan
-  name: ROG Hero Woke
-  "mac": "E8-D1-1B-5D-47-D8"
-  host: !secret wol_host 
-  turn_off:
-    service: script.pc_wake
-    
-##wake_on_lan:
-
-joaoapps_join:
-  - name: ROG
-    device_id: !secret joaoapps_join_device_id1
-    api_key: !secret joaoapps_join_api_key
-  - name: Pixel 3 XL 
-    device_id: !secret joaoapps_join_device_id2
-    api_key: !secret joaoapps_join_api_key
-
-device_tracker:
- - platform: google_maps
-   username: !secret device_tracker_username
-##password: !secret device_tracker_password
- - platform: traccar
-   host: !secret traccar_host 
-   port: !secret traccar_port 
-   username: !secret traccar_username 
-   password: !secret traccar_password 
-
-
-# The updater component will check daily for new releases   
-updater: 
-  include_used_components: true
-##custom_updater:
+  themes: !include_dir_merge_named themes
 
 # Enables configuration UI
 config:
 
-# Uncomment this if you are using SSL/TLS, running in Docker #container, etc.
-##http:
-##  api_password: !secret http_password
-#base_url: xxxxxxx
-
-# Discover some devices automatically
-discovery:
-  ignore:
-    - igd
-
-# Allows you to issue voice commands from the frontend in enabled browsers
-##conversation:
-
-# Enables support for tracking state changes over time
-history:
-
-# View all events in a logbook
-logbook:
-
-# Enables a map showing the location of tracked devices
-map:
-
-# Track the sun
-sun:
-
-# Allow diagnosing system problems
-system_health:
-
-# Weather prediction
-  - platform: yr
-  
 # Example configuration.yaml entry
-##mobile_app:
-  
-##google:
-##client_id: !secret google_calendar_id 
-##client_secret: !secret google_calendar_secret 
+zeroconf:
 
 # Example configuration.yaml entry
+api:
+
+# Example configuration.yaml entry
+assist_pipeline:
+
+# Example configuration.yaml entry
+homeassistant_alerts:
+
+# Example configuration.yaml entry
+http:
+##server_port: 8123
+##cors_allowed_origins:
+##    - https://google.com
+##    - https://www.home-assistant.io
+##  use_x_forwarded_for: true
+##  trusted_proxies:
+##    - 192.168.1.0/24
+##    - 172.30.32.0/24
+##    - 172.70.126.0/24
+  ip_ban_enabled: false
+##  login_attempts_threshold: 5
+
 sensor:
-- platform: time_date
-  display_options:
-      - 'time'
-      - 'date'
-      - 'date_time'
-      - 'date_time_utc'
-      - 'date_time_iso'
-      - 'time_date'
-      - 'time_utc'
-      - 'beat'
+  - platform: sonarr_upcoming_media 
+    api_key: 5e4bc2b3b46c409284603f85cacb28cd  
+    host: 192.168.1.10
+    port: 8989 
+    days: 7
+    ssl: false
+    max: 10
+  - platform: plex_recently_added 
+    token: PsyN3GJfFA4VQeUS3HKz
+    host: 98.4.89.233
+    port: 32400
 
-- platform: mqtt
-  name: "Sump Pump Energy Today"
-  state_topic: "tele/wattman2/SENSOR"
-  value_template: '{{ value_json["ENERGY"]["Today"] }}'
-  unit_of_measurement: "kWh"
+mqtt:
+  - sensor: 
+      name: "Sump Pump Energy Today"
+      state_topic: "tele/wattman2/SENSOR"
+      value_template: '{{ value_json["ENERGY"]["Today"] }}'
+      unit_of_measurement: "kWh"
+
+  - sensor:
+      name: "Sump Pump Energy Total"
+      state_topic: "tele/wattman2/SENSOR"
+      value_template: '{{ value_json["ENERGY"]["Total"] }}'
+      unit_of_measurement: "kWh"
+
+  - sensor:
+      name: "Sump Pump Power"
+      state_topic: "tele/wattman2/SENSOR"
+      value_template: '{{ value_json["ENERGY"]["Power"] }}'
+      unit_of_measurement: "W"
+
+  - sensor:
+      name: "Sump Pump Voltage"
+      state_topic: "tele/wattman2/SENSOR"
+      value_template: '{{ value_json["ENERGY"]["Voltage"] }}'
+      unit_of_measurement: "V"
+
+  - sensor:
+      name: "Sump Pump Current"
+      state_topic: "tele/wattman2/SENSOR"
+      value_template: '{{ value_json["ENERGY"]["Current"] }}'
+      unit_of_measurement: "A"
   
-- platform: mqtt
-  name: "Sump Pump Energy Total"
-  state_topic: "tele/wattman2/SENSOR"
-  value_template: '{{ value_json["ENERGY"]["Total"] }}'
-  unit_of_measurement: "kWh"
+  - switch:
+      name: "Sump Pump"  
+      command_topic: "cmnd/wattman2/POWER" 
+      state_topic: "stat/wattman2/POWER" 
+      qos: 1
+      payload_on: "ON" 
+      payload_off: "OFF"   
+      retain: "true"
 
-- platform: mqtt
-  name: "Sump Pump Power"
-  state_topic: "tele/wattman2/SENSOR"
-  value_template: '{{ value_json["ENERGY"]["Power"] }}'
-  unit_of_measurement: "W"
+  - switch:
+      name: "Playroom Lamp"  
+      command_topic: "cmnd/holiday-plug1/power" 
+      state_topic: "stat/holiday-plug1/POWER" 
+      qos: 1
+      payload_on: "ON" 
+      payload_off: "OFF"   
+      retain: "true"
 
-- platform: mqtt
-  name: "Sump Pump Voltage"
-  state_topic: "tele/wattman2/SENSOR"
-  value_template: '{{ value_json["ENERGY"]["Voltage"] }}'
-  unit_of_measurement: "V"
+  - switch:
+      name: "Dining Room Lamp"  
+      command_topic: "cmnd/diningroomlamp/POWER" 
+      state_topic: "stat/diningroomlamp/POWER" 
+      qos: 1
+      payload_on: "ON" 
+      payload_off: "OFF"   
+      retain: "true"
+
+  - switch:
+      name: "Hallway Lamp"  
+      command_topic: "cmnd/hallway_lamp/power" 
+      state_topic: "stat/hallway_lamp/POWER" 
+      qos: 1
+      payload_on: "ON" 
+      payload_off: "OFF"   
+      retain: "false"
+
+  - switch:
+      name: "Living Room Lamp"  
+      command_topic: "cmnd/livingroomlamp/POWER" 
+      state_topic: "stat/livingroomlamp/POWER" 
+      qos: 1
+      payload_on: "ON" 
+      payload_off: "OFF"   
+      retain: "true"
+
+  - light:
+      name: "Merkary_8"
+      command_topic: "cmnd/mbulb8/POWER"
+      state_topic: "stat/mbulb8/POWER"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+      retain: "true"
+
+  - light:
+      name: "Bathroom_2" 
+      command_topic: "cmnd/mbulb2/POWER"
+      state_topic: "stat/mbulb2/POWER"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+      retain: "true"
+
+  - light:
+      name: "Bathroom_1"
+      command_topic: "cmnd/mbulb1/POWER"
+      state_topic: "stat/mbulb1/POWER"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+      retain: "true"
+
+  - light:
+      name: "Bathroom_3"
+      command_topic: "cmnd/mbulb3/POWER"
+      state_topic: "stat/mbulb3/POWER"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+      retain: "true"
+    
+  - light: 
+      name: "Merkary_4"
+      command_topic: "cmnd/mbulb4/POWER"
+      state_topic: "stat/mbulb4/POWER"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+      retain: "false"
+
+  - light: 
+      name: "Merkary_5"
+      command_topic: "cmnd/mbulb5/POWER"
+      state_topic: "stat/mbulb5/POWER"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+      retain: "false"
    
-- platform: mqtt
-  name: "Sump Pump Current"
-  state_topic: "tele/wattman2/SENSOR"
-  value_template: '{{ value_json["ENERGY"]["Current"] }}'
-  unit_of_measurement: "A"
-  
-- platform: mqtt
-  name: "Energy Today"
-  state_topic: "tele/wattman1/SENSOR"
-  value_template: '{{ value_json["ENERGY"]["Today"] }}'
-  unit_of_measurement: "kWh"
+  - light:
+      name: "Merkary_6"
+      command_topic: "cmnd/mbulb6/POWER"
+      state_topic: "stat/mbulb6/POWER"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+      retain: "false"
 
-- platform: mqtt
-  name: "Power"
-  state_topic: "tele/wattman1/SENSOR"
-  value_template: '{{ value_json["ENERGY"]["Power"] }}'
-  unit_of_measurement: "W"
+  - light:
+      name: "Basement Stairs"
+      command_topic: "cmnd/mbulb7/POWER"
+      state_topic: "stat/mbulb7/POWER"
+      qos: 1
+      payload_on: "ON"
+      payload_off: "OFF"
+      retain: "true"
 
-- platform: mqtt
-  name: "Voltage"
-  state_topic: "tele/wattman1/SENSOR"
-  value_template: '{{ value_json["ENERGY"]["Voltage"] }}'
-  unit_of_measurement: "V"
-   
-- platform: mqtt
-  name: "Current"
-  state_topic: "tele/wattman1/SENSOR"
-  value_template: '{{ value_json["ENERGY"]["Current"] }}'
-  unit_of_measurement: "A"
-  
-- platform: moon
-- platform: bitcoin 
-  display_options: 
-    - exchangerate 
-    - trade_volume_btc
-
-weather:
-  - platform: darksky
-    api_key: !secret dark_api
-    latitude: !secret dark_sky_lat
-    longitude: !secret dark_sky_long
-    units: auto
-    mode: hourly 
-
-eufy:
-  username: !secret eufy_username
-  password: !secret eufy_password
-
-tuya:
-  username: !secret tuya_username 
-  password: !secret tuya_password
-  country_code: 1
-  platform: tuya 
-
-blink:  
-  username: !secret blink_username
-  password: !secret blink_password
- 
-sonoff:
-  username: !secret sonoff_username
-  password: !secret sonoff_password
-  api_region: US
-
-nest: 
-  client_id: !secret client_id 
-  client_secret: !secret client_secret
-
-cover:
-  - platform: myq
-    username: !secret myq_username
-    password: !secret myq_password
-
-notify:
-  - name: PushBullet
-    platform: pushbullet
-    api_key: !secret push_api_key
-  - platform: joaoapps_join
-    api_key: xxxxxxx
-    device_id: xxxxxxxxxx      
-    name: Computer
-  - platform: joaoapps_join
-    api_key: !secret joaoapps_join_api_key
-    device_id: !secret joaoapps_join_device_id2    
-    name: Dave's Phone
-
-# Example configuration.yaml entry
-wake_on_lan:
-  mac: "E8:D1:1B:5D:47:D8"
-  broadcast_address: !secret broadcast_address 
-
-cloud:
-
-# Text to speech
-tts: 
- - platform: google_translate
-   language: 'en'
-
-input_select:
-  activities:
-    name: Activities
-    options:
-      - Play PS4
-      - Watch Chromecast
-      - Everything On
-      - DVR
-    initial: Everything On
-    icon: mdi:panda
-
-############ iframes ###############
-# Example configuration.yaml entry
-panel_iframe:
-  router:
-    title: 'Portainer'
-    url: xxxxxxx
-    icon: mdi:minidisc 
-  fridge:
-    title: 'ESPHome'
-    url: xxxxxxxxx
-    icon: mdi:minidisc 
-
-##input_select: !include input_select.yaml
-##sensor: !include_dir_merge_named sensor/
-remote: !include remote.yaml
-group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
+scene: !include scenes.yaml
+
+homeassistant:
+  customize: !include customize.yaml
+
