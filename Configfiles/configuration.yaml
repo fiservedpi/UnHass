@@ -202,4 +202,4 @@ scene: !include scenes.yaml
 
 homeassistant:
   customize: !include customize.yaml
-
+  resources: !include resources.yaml
